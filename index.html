@@ -1,42 +1,76 @@
-<!DOCTYPE html>
-<html lang="en">
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
   <head>
     <meta charset="utf-8"/>
     <title>Food and other things</title>
-    <link rel="stylesheet" href="tufte.css"/>
+    <link rel="stylesheet" type="text/css" href="tufte.css"/>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript">
+
+      const POSTS = [
+        {
+          title: 'My second article',
+          author: 'JP',
+          date: new Date(2021, 02, 04),
+          file: 'template.html',
+          excerpt: 'This is an excerpt from the articleeeee.',
+        },
+        {
+          title: 'My first article',
+          author: 'JP',
+          date: new Date(2021, 02, 04),
+          file: 'template.html',
+          excerpt: 'This is an excerpt from the articleeeee.',
+        },
+      ];
+
+    </script>
   </head>
   <body>
     <article>
       <h1>Food and other things</h1>
       <p class="subtitle">A blog about a multitude of subjects</p>
       <br />
-      <hr />
-      <h2>My second article</h2>
-      <p>by JP (2021-02-03)</p>
-      <blockquote>
-        <p>
-          This is an excerpt from the article. Images can go in here to.
-          Maybe just copy and paste from the start of the actual article
-          or write a cool hook.
-        </p>
-        <footer>
-          <a href="pages/template.html">Read more</a>
-        </footer>
-      </blockquote>
-      <hr />
-      <h2>My first article</h2>
-      <p>by JP (2021-02-03)</p>
-      <blockquote>
-        <p>
-          This is an excerpt from the article. Images can go in here to.
-          Maybe just copy and paste from the start of the actual article
-          or write a cool hook.
-        </p>
-        <footer>
-          <a href="pages/template.html">Read more</a>
-        </footer>
-      </blockquote>
+      <div id="post-template" style="display: none;">
+        <hr />
+        <h2></h2>
+        <p></p>
+        <blockquote>
+          <p></p>
+          <footer>
+            <a>Read more</a>
+          </footer>
+        </blockquote>
+      </div>
     </article>
+    <script type="text/javascript">
+      function formatDate(date) {
+        let d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+        if (month.length < 2) {
+          month = '0' + month;
+        }
+        if (day.length < 2) {
+          day = '0' + day;
+        }
+        return [year, month, day].join('-');
+      }
+
+      for (let post of POSTS) {
+        const template = document.getElementById('post-template');
+        let filled = template.cloneNode(true);
+        filled.id = '';
+        filled.children[1].innerHTML = post.title;
+        filled.children[2].innerHTML = `${post.author} (${formatDate(post.date)})`;
+        filled.children[3].children[0].innerHTML = post.excerpt;
+        filled.children[3].children[1].children[0].href = 'pages/' + post.file;
+        filled.style.display = 'block';
+        template.parentNode.appendChild(filled);
+      }
+    </script>
   </body>
 </html>
