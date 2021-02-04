@@ -11,18 +11,12 @@
 
       const POSTS = [
         {
-          title: 'My second article',
+          title: 'What is this?',
           author: 'JP',
           date: new Date(2021, 02, 04),
-          file: 'template.html',
-          excerpt: 'This is an excerpt from the articleeeee.',
-        },
-        {
-          title: 'My first article',
-          author: 'JP',
-          date: new Date(2021, 02, 04),
-          file: 'template.html',
-          excerpt: 'This is an excerpt from the articleeeee.',
+          file: 'what-is-this.html',
+          excerpt: 'I always wanted to be the kind of person that journals. Nevermind the therapeutic benefits of journalling, I just wanted to have a time capsule of the kinds of problems I faced or what seemed important to me at different points in my life.',
+          public: true,
         },
       ];
 
@@ -61,15 +55,17 @@
       }
 
       for (let post of POSTS) {
-        const template = document.getElementById('post-template');
-        let filled = template.cloneNode(true);
-        filled.id = '';
-        filled.children[1].innerHTML = post.title;
-        filled.children[2].innerHTML = `${post.author} (${formatDate(post.date)})`;
-        filled.children[3].children[0].innerHTML = post.excerpt;
-        filled.children[3].children[1].children[0].href = 'pages/' + post.file;
-        filled.style.display = 'block';
-        template.parentNode.appendChild(filled);
+        if (post.public) {
+          const template = document.getElementById('post-template');
+          let filled = template.cloneNode(true);
+          filled.id = '';
+          filled.children[1].innerHTML = post.title;
+          filled.children[2].innerHTML = `Posted by ${post.author} (${formatDate(post.date)})`;
+          filled.children[3].children[0].innerHTML = `"${post.excerpt}.."`;
+          filled.children[3].children[1].children[0].href = 'pages/' + post.file;
+          filled.style.display = 'block';
+          template.parentNode.appendChild(filled);
+        }
       }
     </script>
   </body>
