@@ -402,6 +402,10 @@ label.margin-toggle:not(.sidenote-number) {
         width: 100%;
     }
 
+    p {
+        width: 100%;
+    }
+
     pre > code {
         width: 97%;
     }
